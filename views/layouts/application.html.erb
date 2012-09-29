@@ -13,13 +13,48 @@
       <%= link_to('This is a link to Bing','http://bing.com') %>
       <a href="http://google.com">This is a link to google</a>
       <a href='me.html'>Me</a>
-
+      
+      <form method='post' action="<%= @request.path %>">
+        First name:
+        <input type="text" name="first_name" placeholder='first name'/><br/>
+	<input type="submit" value="Submit" />
+      </form>
+      
+      <p>Choose One</p>
+      <form method='post' action="<%= @request.path %>">
+            <input type="radio" name="gender" value="male">MALE<br>
+            <input type="radio" name="gender" value="female">FEMALE<br>
+            <input type="submit" value="Submit" />
+      </form>
+      
+      <form method='post' action="<% @request.path %>">
+            <input type="checkbox" name="vehicle" value="Bike">I have a bike<br>
+            <input type="checkbox" name="vehicle" value="Car">I have a car<br>
+            <input type="submit" value="Submit" />
+      </form>
+            
+      <% if @request.query['first_name'] && !@request.query['first_name'].empty? %>
+          Hello there <%= @request.query['first_name']%>
+      <% else %>
+          Enter thy name
+      <% end %>
+      
+      <% if @request.query['gender'] %>
+          You are a <%= @request.query['gender']%>
+      <% end %>
+      
+      <% if @request.query['vehicle'] %>
+          You own a <%= @request.query['vehicle']%>
+      <% end %>
+      
     </p>
+    
     <hr />
     <div>
       <%= yield %>
     </div>
     <hr />
+    
     <div>
       <h3> I'm a footer</h3>
       <p>Put things in the footer</p>
